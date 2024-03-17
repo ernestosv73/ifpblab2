@@ -1,0 +1,32 @@
+name: labo01
+  
+topology:
+  nodes:
+    # Nokia SRL Linux router
+    srlrouter:
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:23.10.1
+      type: ixrd3
+      startup-config: srlrouter.cfg
+
+    PC1:
+      kind: linux
+      image: praqma/network-multitool:extra
+      exec:
+      - ip link set eth1 up
+      - ip addr add 192.168.10.2/24 dev eth1
+      - ip route add 10.10.20.0/24 via 192.168.10.1 dev eth1
+      
+    PC2:
+      kind: linux
+      image: praqma/network-multitool:extra
+      exec:
+      - ip link set eth1 up
+      - ip addr add 10.10.20.2/24 dev eth1
+      - ip route add 192.168.10.0/24 via 10.10.20.1 dev eth1
+    
+  links:
+    
+    - endpoints: ["PC1:eth1", "srlrouter:e1-1"]
+    - endpoints: ["PC2:eth1", "srlrouter:e1-2"]
+    
