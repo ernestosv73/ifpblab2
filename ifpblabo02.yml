@@ -33,6 +33,6 @@ topology:
   links:
     
     - endpoints: ["srlrouter:e1-1", "srlswitch:e1-1"]
-    - endpoints: ["PC1:eth1", "srlrouter:e1-2"]
-    - endpoints: ["PC2:eth1", "srlrouter:e1-3"]
+    - endpoints: ["PC1:eth1", "srlswitch:e1-2"]
+    - endpoints: ["PC2:eth1", "srlswitch:e1-3"]
     
